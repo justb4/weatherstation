@@ -4,7 +4,7 @@
 #
 SHELL=/bin/sh
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
-SRC=/opt/weatherstation/git/src
+SRC=/opt/weatherstation/git
 
 # Do checks on weewx and network every N mins
 */6  * * * * $SRC/weewx/weewxcheck.sh

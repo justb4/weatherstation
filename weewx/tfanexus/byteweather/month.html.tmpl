@@ -80,7 +80,8 @@
         </div>
         <div class="menu-top-menu-container">
           <ul id="menu-top-menu" class="menu">
-            <li id="menu-item-1" class="menu-item menu-item-home"><a href="index.html">Home</a></li>
+              <li id="menu-item-0" class="menu-item"><a href="../index.html">Home</a></li>
+            <li id="menu-item-1" class="menu-item menu-item-home"><a href="index.html">Today</a></li>
             <li id="menu-item-2" class="menu-item"><a href="week.html">Week</a></li>
             <li id="menu-item-3" class="menu-item current-menu-item"><a href="month.html">Month</a></li>
             <li id="menu-item-4" class="menu-item"><a href="year.html">Year</a></li>
@@ -506,25 +507,33 @@
 
       <div id="footer" class="grid_12">
         <h3>About this weather station</h3>
-        <p>
           #if $station.hardware[0:7] == 'Vantage'
               This station uses a <a href="http://davisnet.com">
               Davis $station.hardware</a> weather station,
           #elif $station.hardware == 'VantageIP'
             with a <a href="http://davisnet.com/weather/products/weather_product.asp?pnum=06555">
-            WeatherLinkIP connection</a>, 
+            WeatherLinkIP connection</a>,
           #elif $station.hardware == 'WMR100'
             This station uses an <a href="http://us.oregonscientific.com">
             Oregon Scientific WMR100N</a> weather station,
           #else
-              This station uses a $station.hardware weather station,
+              This station uses a TFA Nexus Pro weather station,
           #end if
-          controlled by <a href="http://www.weewx.com">'weewx'</a>, an
-          experimental weather software system written in Python. Weewx was designed to be simple,
-          fast, and easy to understand by leveraging modern software concepts.
-        </p>
+          <p>
+            This station is
+              mounted on our cabin at campsite Het Lorkenbos, Otterlo, the Netherlands.
+              It is controlled by
+            <a href="http://www.weewx.com">'weewx'</a>, an experimental
+            weather software system written in Python. Weewx
+            was designed to be simple, fast, and easy to understand by
+            leveraging modern software concepts.
+          </p>
+          <p>
+              The <a href="http://davies-barnard.co.uk/2014/01/weewx-byteweather-template">"Byteweather" template</a>
+              for these pages was kindly provided by <a href="http://davies-barnard.co.uk/">Chris Davies-Barnard</a>.
+          </p>
       </div> <!-- End id "about" -->
-      
+
       
     <div class="clr"></div>
 

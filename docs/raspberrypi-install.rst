@@ -464,6 +464,18 @@ TE923 driver. Nodig `pyusb` ::
 
     adduser sadmin plugdev
 
+    # http://www.weerhuisje.nl/index.php?item=tfa-35_1075---nexus-nx-pro-weerstation_-nieuwste-model&action=article&aid=9537
+    Om de fabrieksinstellingen van  het Nexus weerstation te herstellen voert u de volgende stappen uit:
+    Druk op de "snooze" knop aan de bovenzijde en houd gelijktijdig de "Pijl omhoog" knop ingedrukt.
+    Houd beide knoppen ingedrukt gedurende 4 seconden.
+    Zodra de achtergrondverlichting begint te knipperen, laat u de twee knoppen los.
+    Druk op de "Set" knop om de reset te bevestigen.
+    Het Nexus weerstation begint te piepen gedurende ongeveer 2 minuten.
+    Nadat het basisstation is gestopt met de pieptoon moet het worden uitgeschakeld.
+    Verwijder de netvoeding en de batterijen uit het apparaat.
+    Wacht 1 minuut en herplaats batterijen en netvoeding.
+    De reset is voltooid.
+
 Installation - Weather Hardware
 ===============================
 
