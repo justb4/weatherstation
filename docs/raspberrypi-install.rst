@@ -881,6 +881,38 @@ A typical result is as follows. See samoa admin site ::
     -/+ buffers/cache:         55        382
     Swap:           99          0         99
 
+Sudden WIFI disconnects (wificheck.sh was not running). ::
+
+    Dec 17 21:35:37 otterpi weewx[2246]: genimages: Generated 11 images for StandardReport in 3.98 seconds
+    Dec 17 21:35:37 otterpi weewx[2246]: reportengine: copied 0 files to /opt/weewx/weewxinst/public_html
+    Dec 17 21:35:37 otterpi weewx[2246]: reportengine: Running report FTP
+    Dec 17 21:35:37 otterpi weewx[2246]: reportengine: Found configuration file /opt/weewx/weewxinst/skins/Ftp/skin.conf for report FTP
+    Dec 17 21:35:37 otterpi weewx[2246]: reportengine: FTP upload not requested. Skipped.
+    Dec 17 21:35:37 otterpi weewx[2246]: reportengine: Running report RSYNC
+    Dec 17 21:35:37 otterpi weewx[2246]: reportengine: Found configuration file /opt/weewx/weewxinst/skins/Rsync/skin.conf for report RSYNC
+    Dec 17 21:35:39 otterpi weewx[2246]: rsyncupload: rsync'd 26 files (131281 bytes) in 1.76 seconds
+    Dec 17 21:35:39 otterpi kernel: [63029.884593] ------------[ cut here ]------------
+    Dec 17 21:35:39 otterpi kernel: [63029.884712] WARNING: CPU: 0 PID: 13994 at drivers/usb/core/urb.c:330 usb_submit_urb+0x38c/0x3ac()
+    Dec 17 21:35:39 otterpi kernel: [63029.884729] URB da23d280 submitted while active
+    Dec 17 21:35:39 otterpi kernel: [63029.884739] Modules linked in: snd_bcm2835 snd_soc_bcm2708_i2s regmap_mmio snd_soc_core snd_compress regmap_i2c snd_pcm_dmaengine regmap_spi snd_pcm snd_page_alloc snd_seq arc4 snd_seq\
+    _device snd_timer leds_gpio snd rt2800usb rt2800lib rt2x00usb rt2x00lib led_class mac80211 cfg80211 crc_ccitt rfkill
+    Dec 17 21:35:39 otterpi kernel: [63029.884841] CPU: 0 PID: 13994 Comm: kworker/u2:1 Not tainted 3.12.28+ #709
+    Dec 17 21:35:39 otterpi kernel: [63029.884894] Workqueue: phy0 rt2x00usb_work_rxdone [rt2x00usb]
+    Dec 17 21:35:39 otterpi kernel: [63029.884957] [<c001444c>] (unwind_backtrace+0x0/0xec) from [<c0011730>] (show_stack+0x10/0x14)
+    Dec 17 21:35:39 otterpi kernel: [63029.884997] [<c0011730>] (show_stack+0x10/0x14) from [<c001f8ec>] (warn_slowpath_common+0x68/0x88)
+    Dec 17 21:35:39 otterpi kernel: [63029.885025] [<c001f8ec>] (warn_slowpath_common+0x68/0x88) from [<c001f93c>] (warn_slowpath_fmt+0x30/0x40)
+    Dec 17 21:35:39 otterpi kernel: [63029.885053] [<c001f93c>] (warn_slowpath_fmt+0x30/0x40) from [<c02f32ac>] (usb_submit_urb+0x38c/0x3ac)
+    Dec 17 21:35:39 otterpi kernel: [63029.885098] [<c02f32ac>] (usb_submit_urb+0x38c/0x3ac) from [<bf0d25b8>] (rt2x00usb_kick_rx_entry+0xb8/0x130 [rt2x00usb])
+    Dec 17 21:35:39 otterpi kernel: [63029.885198] [<bf0d25b8>] (rt2x00usb_kick_rx_entry+0xb8/0x130 [rt2x00usb]) from [<bf0bf90c>] (rt2x00lib_rxdone+0x138/0x5a0 [rt2x00lib])
+    Dec 17 21:35:39 otterpi kernel: [63029.885268] [<bf0bf90c>] (rt2x00lib_rxdone+0x138/0x5a0 [rt2x00lib]) from [<bf0d2f48>] (rt2x00usb_work_rxdone+0x58/0x9c [rt2x00usb])
+    Dec 17 21:35:39 otterpi kernel: [63029.885316] [<bf0d2f48>] (rt2x00usb_work_rxdone+0x58/0x9c [rt2x00usb]) from [<c003540c>] (process_one_work+0x118/0x378)
+    Dec 17 21:35:39 otterpi kernel: [63029.885347] [<c003540c>] (process_one_work+0x118/0x378) from [<c003634c>] (worker_thread+0x140/0x450)
+    Dec 17 21:35:39 otterpi kernel: [63029.885372] [<c003634c>] (worker_thread+0x140/0x450) from [<c003c06c>] (kthread+0xa4/0xb0)
+    Dec 17 21:35:39 otterpi kernel: [63029.885400] [<c003c06c>] (kthread+0xa4/0xb0) from [<c000df58>] (ret_from_fork+0x14/0x3c)
+    Dec 17 21:35:39 otterpi kernel: [63029.885414] ---[ end trace 35a802eafd229196 ]---
+
+Same issue as here http://www.raspberrypi.org/forums/viewtopic.php?t=53546&p=580567
+
 Backup
 ------
 
@@ -1051,7 +1083,7 @@ to make a restorable .tar.gz (i.s.o. dd diskclone).  ::
     #
     SHELL=/bin/sh
     PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
-    SRC=/opt/weatherstation/git/src
+    SRC=/opt/weatherstation/git
 
     # Do checks on weewx and network every N mins
     */6  * * * * $SRC/weewx/weewxcheck.sh
