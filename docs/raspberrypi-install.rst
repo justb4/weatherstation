@@ -1141,6 +1141,23 @@ Overdracht. `/etc/network/interfaces` aanpassen. ::
     /tmp/oldpi/etc/network/interfaces
 
 
+Break-in attempts blokkeren met denyhosts
+-----------------------------------------
+
+Zie http://denyhosts.sourceforge.net
+
+Analyseert de /var/log/auth.log file op break-in en herhaaldelijk
+inloggen (bijv. dictionary attacks) en voegt hosts toe aan /etc/hosts.deny ::
+
+   apt-get install denyhosts
+
+   # installs 2.6-10
+
+Configuratie in ``/etc/denyhosts.cfg`` (email adres en Subject aanpassen)
+
+Om deblokkeren, zie. Data files staan onder `/var/lib`:
+http://www.cyberciti.biz/faq/linux-unix-delete-remove-ip-address-that-denyhosts-blocked/
+
 Links
 -----
 

@@ -51,26 +51,26 @@
         <!--</div>-->
           <!-- END OF WUNDERGROUND CODE -->
         
-        <div id="stats" class="grid_4">
-          <h3>Stats</h3>
-          Weewx uptime: $station.uptime<br/>
-          Server  uptime: $station.os_uptime<br/>
-          weewx v$station.version
-          <h3>Location</h3>
-          Latitude: $station.latitude[0]&deg; $station.latitude[1]' $station.latitude[2]<br />
-          Longitude: $station.longitude[0]&deg; $station.longitude[1]' $station.longitude[2]<br />
-          Altitude: $station.altitude<br />
-        </div>
+          <div id="stats" class="grid_4">
+               <a href="http://www.justobjects.nl">
+                   <img src="logo.png" width="140" border="0" alt="Just Objects Website" />
+               </a><br />
+               Latitude: $station.latitude[0]&deg; $station.latitude[1]' $station.latitude[2]<br />
+               Longitude: $station.longitude[0]&deg; $station.longitude[1]' $station.longitude[2]<br />
+               Altitude: $station.altitude<br />
+               weewx v$station.version   <br />
+           </div>
 
-          <div class="grid_3">
-              <pre>
+         <div class="grid_3">
+           <!--<h3>Stats</h3>-->
+           <!--Weewx uptime: $station.uptime<br/>-->
+           <!--Server  uptime: $station.os_uptime<br/>-->
+           <!--<h3>Info</h3>-->
+             <a href="http://www.wunderground.com/weatherstation/WXDailyHistory.asp?ID=IGELDERL153">
+                 <img src="http://banners.wunderground.com/cgi-bin/banner/ban/wxBanner?bannertype=wxstnsticker_metric&weatherstationcount=IGELDERL153" height="160" width="160" border="0" alt="Weather Underground PWS IGELDERL153" />
+             </a>
+         </div>
 
-
-              </pre>
-              <a href="http://www.justobjects.nl">
-                  <img src="logo.png" width="140" border="0" alt="Just Objects Website" />
-              </a>
-          </div>
       </header>
       <!-- End of Header Section -->
       
@@ -82,6 +82,7 @@
         </div>
         <div class="menu-top-menu-container">
           <ul id="menu-top-menu" class="menu">
+              <li id="menu-item-0" class="menu-item"><a href="../index.html">Home</a></li>
             <li id="menu-item-1" class="menu-item menu-item-home"><a href="index.html">Today</a></li>
             <li id="menu-item-2" class="menu-item"><a href="week.html">Week</a></li>
             <li id="menu-item-3" class="menu-item"><a href="month.html">Month</a></li>
@@ -102,10 +103,9 @@
                 #end for
               </ul>
             </li>
-            <li id="menu-item-7" class="menu-item"><a href="RSS/weewx_rss.xml">RSS</a></li>
-            <li id="menu-item-8" class="menu-item"><a href="mobile.html">WAP</a></li>
+            <!--<li id="menu-item-7" class="menu-item"><a href="RSS/weewx_rss.xml">RSS</a></li>-->
+            <!--<li id="menu-item-8" class="menu-item"><a href="mobile.html">WAP</a></li>-->
             <li id="menu-item-9" class="menu-item"><a href="smartphone/index.html">Mobile</a></li>
-              <li id="menu-item-99" class="menu-item"><a href="../index.html">Home</a></li>
           </ul>
         </div>
       </nav>
