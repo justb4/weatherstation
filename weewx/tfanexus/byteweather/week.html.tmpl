@@ -46,20 +46,14 @@
             <h3>$current.dateTime</h3>
         </div>
         
-          <!-- INSERT YOUR WUNDERGROUND CODE HERE -->
-        <!--<div class="grid_3">-->
-          <!--<a href="http://www.wunderground.com/weatherstation/WXDailyHistory.asp?ID=IBRISTOL31"><img src="http://banners.wunderground.com/cgi-bin/banner/ban/wxBanner?bannertype=WeatherStationCount&weatherstationcount=IBRISTOL31" height="160" width="163" border="0" alt="Weather Underground PWS IBRISTOL31" /></a>-->
-        <!--</div>-->
-          <!-- END OF WUNDERGROUND CODE -->
-
           <div id="stats" class="grid_4">
-              <a href="http://www.justobjects.nl">
-                  <img src="logo.png" width="140" border="0" alt="Just Objects Website" />
-              </a><br />
-              Latitude: $station.latitude[0]&deg; $station.latitude[1]' $station.latitude[2]<br />
-              Longitude: $station.longitude[0]&deg; $station.longitude[1]' $station.longitude[2]<br />
-              Altitude: $station.altitude<br />
-              weewx v$station.version   <br />
+              <a href="/webcam/index.html">
+                  <img src="/webcam/snapshot.jpg" width="140" border="0" alt="Webcam"/>
+              </a> <br/>
+              Latitude: $station.latitude[0]&deg; $station.latitude[1]' $station.latitude[2]<br/>
+              Longitude: $station.longitude[0]&deg; $station.longitude[1]' $station.longitude[2]<br/>
+              Alt: $station.altitude - <a href="http://www.wunderground.com/wundermap/?lat=52.09&lon=5.76&zoom=11&pin=Otterlo&rad=1&rad.type=00Q&wxsn=1&svr=0&cams=0&sat=0&riv=0&mm=0&hur=0">Map</a><br/>
+              weewx v$station.version <br/>
           </div>
 
         <div class="grid_3">
@@ -516,7 +510,7 @@
             This station uses an <a href="http://us.oregonscientific.com">
             Oregon Scientific WMR100N</a> weather station,
           #else
-              This station uses a TFA Nexus Pro weather station,
+              This station uses a <a href="http://www.weerstationkopen.nl/weerstations/tfa/351075-nx-pro-weerstation" target="_new">TFA Nexus Pro weather station</a>,
           #end if
           <p>
             This station is
@@ -530,6 +524,9 @@
           <p>
               The <a href="http://davies-barnard.co.uk/2014/01/weewx-byteweather-template">"Byteweather" template</a>
               for these pages was kindly provided by <a href="http://davies-barnard.co.uk/">Chris Davies-Barnard</a>.
+          </p>
+          <p>
+              Weather station and website setup by <a href="http://justobjects.nl">Just van den Broecke</a>.
           </p>
       </div> <!-- End id "about" -->
 

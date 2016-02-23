@@ -140,7 +140,7 @@ claimInterface.
 # TODO: sensor data use 32 bytes, but each historical record is 38 bytes.  what
 #       do the other 4 bytes represent?
 
-# FIXME: speed up transfers:
+# FIXME: speed up transfers: 
 # date;PYTHONPATH=bin python bin/weewx/drivers/te923.py --records 0 > b; date
 # Tue Nov 26 10:37:36 EST 2013
 # Tue Nov 26 10:46:27 EST 2013
@@ -232,7 +232,7 @@ def bp2sp(bp_mbar, elev_meter, t_C, humidity):
 
 class TE923(weewx.abstractstation.AbstractStation):
     """Driver for Hideki TE923 stations."""
-
+    
     def __init__(self, **stn_dict) :
         """Initialize the station object.
 
@@ -365,7 +365,11 @@ def data_to_packet(data, status=None, altitude=0,
     if packet['windSpeed'] is not None:
         packet['windSpeed'] *= 1.60934 # speed is mph; weewx wants km/h
     if packet['windSpeed']:
-        packet['windDir'] = data['winddir']
+        # JvdB correction, 2.jan.2015 - remove after calibrating the anemometer
+        # shift 90 degrees positive, e.g. E becomes S, SE becomes SW,  etc
+        # data[winddir] is in units 0..15 with 22.5 degree per unit. So 4 units is 90 degrees.
+        # packet['windDir'] = data['winddir']
+        packet['windDir'] = (data['winddir'] + 5) % 15
         if packet['windDir'] is not None:
             packet['windDir'] *= 22.5 # weewx wants degrees
     else:
@@ -608,7 +612,7 @@ def decode_wind(buf):
         data['winddir'] = int(buf[29] & 0x0f)
     if DEBUG_DECODE:
         logdbg("WDR  %s %s" % (data['winddir'], data['winddir_state']))
-
+    
     return data
 
 # FIXME: figure out how to detect link status between station and rain bucket
@@ -830,7 +834,7 @@ class Station(object):
         status['battery3']    = buf[1] & 0x04 == 0x04
         status['battery2']    = buf[1] & 0x02 == 0x02
         status['battery1']    = buf[1] & 0x01 == 0x01
-
+        
         return status
 
     def get_readings(self):

@@ -39,37 +39,24 @@
     <div id="masthead" class="grid_5">
         <h1>$station.location</h1>
 
-        <h2>Current Weather at Boshut</h2>
+        <h2>Het Lorkenbos - Boshut</h2>
 
         <h3>$current.dateTime</h3>
     </div>
 
-    <!-- INSERT YOUR WUNDERGROUND CODE HERE -->
-    <!--<div class="grid_3">-->
-    <!--<a href="http://www.wunderground.com/weatherstation/WXDailyHistory.asp?ID=IBRISTOL31"><img src="http://banners.wunderground.com/cgi-bin/banner/ban/wxBanner?bannertype=WeatherStationCount&weatherstationcount=IBRISTOL31" height="160" width="163" border="0" alt="Weather Underground PWS IBRISTOL31" /></a>-->
-    <!--</div>-->
-    <!-- END OF WUNDERGROUND CODE -->
     <div id="stats" class="grid_4">
-        <a href="http://www.justobjects.nl">
-            <img src="logo.png" width="140" border="0" alt="Just Objects Website"/>
+        <a href="/webcam/index.html">
+            <img src="/webcam/snapshot.jpg" width="140" border="0" alt="Webcam"/>
         </a> <br/>
         Latitude: $station.latitude[0]&deg; $station.latitude[1]' $station.latitude[2]<br/>
         Longitude: $station.longitude[0]&deg; $station.longitude[1]' $station.longitude[2]<br/>
-        Altitude: $station.altitude<br/>
+        Alt: $station.altitude - <a href="http://www.wunderground.com/wundermap/?lat=52.09&lon=5.76&zoom=11&pin=Otterlo&rad=1&rad.type=00Q&wxsn=1&svr=0&cams=0&sat=0&riv=0&mm=0&hur=0">Map</a><br/>
         weewx v$station.version <br/>
     </div>
 
     <div class="grid_3">
-        <!--<a href="http://www.justobjects.nl">-->
-        <!--<img src="logo.png" width="140" border="0" alt="Just Objects Website" />-->
-        <!--</a> <br />-->
-        <!--&lt;!&ndash;<h3>Stats</h3>&ndash;&gt;-->
-        <!--Weewx uptime: $station.uptime<br/>-->
-        <!--Server  uptime: $station.os_uptime<br/>-->
-        <!--<h3>Info</h3>-->
         <a href="http://www.wunderground.com/weatherstation/WXDailyHistory.asp?ID=IGELDERL153">
-        <img src="http://banners.wunderground.com/cgi-bin/banner/ban/wxBanner?bannertype=wxstnsticker_metric&weatherstationcount=IGELDERL153"
-             height="160" width="160" border="0" alt="Weather Underground PWS IGELDERL153" />
+            <img src="http://banners.wunderground.com/cgi-bin/banner/ban/wxBanner?bannertype=wxstnsticker_metric&weatherstationcount=IGELDERL153" height="160" width="160" border="0" alt="Weather Underground PWS IGELDERL153" />
         </a>
     </div>
 
@@ -166,6 +153,10 @@
         <tr>
             <td class="stats_label">Inside Temperature</td>
             <td class="stats_data">$current.inTemp</td>
+        </tr>
+        <tr>
+            <td class="stats_label">Inside Humidity</td>
+            <td class="stats_data">$current.inHumidity</td>
         </tr>
         #if $day.extraTemp1.has_data
         <tr>
@@ -356,6 +347,12 @@
     </table>
 </div>
 <!--End class "stats" -->
+
+<div id="knmi_temp_img">
+    <a href="http://www.knmi.nl/actueel"><img width="300" src="http://www.knmi.nl/actueel/images/tempgmt.png" alt="KNMI Actueel"/></a>
+
+    <p>Click image for Dutch national weather</p>
+</div>
 
 #if $Extras.has_key('radar_img')
 <div id="radar_img">
@@ -575,7 +572,7 @@
     This station uses an <a href="http://us.oregonscientific.com">
     Oregon Scientific WMR100N</a> weather station,
     #else
-    This station uses a TFA Nexus Pro weather station,
+    This station uses a <a href="http://www.weerstationkopen.nl/weerstations/tfa/351075-nx-pro-weerstation" target="_new">TFA Nexus Pro weather station</a>,
     #end if
     <p>
         This station is
@@ -590,6 +587,9 @@
     <p>
         The <a href="http://davies-barnard.co.uk/2014/01/weewx-byteweather-template">"Byteweather" template</a>
         for these pages was kindly provided by <a href="http://davies-barnard.co.uk/">Chris Davies-Barnard</a>.
+    </p>
+    <p>
+        Weather station and website setup by <a href="http://justobjects.nl">Just van den Broecke</a>.
     </p>
 </div>
 <!-- End id "about" -->

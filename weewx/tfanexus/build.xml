@@ -12,21 +12,26 @@ $Id: build.xml 99 2009-08-20 12:11:38Z just $
 
     <target name="sync-weewx">
         <exec executable="rsync">
-            <arg line="-e ssh -alzvx --exclude .svn/"/>
+            <arg line="-e ssh -alzvx "/>
             <arg line="${home.dir}/byteweather/"/>
             <arg line="sadmin@boshut.dyndns.org:/opt/weewx/weewxinst/skins/byteweather/"/>
         </exec>
 
         <exec executable="rsync">
-            <arg line="-e ssh -alzvx --exclude .svn/"/>
+            <arg line="-e ssh -alzvx "/>
             <arg line="${home.dir}/byteweather/"/>
-            <arg line="ftpju011@194.109.21.5:/home/f/ftpju011/Webhosting/htdocs/boshut.justobjects.nl/weer/"/>
+            <arg line="ftpju011@wh-shell1.xs4all.nl:/home/f/ftpju011/Webhosting/htdocs/boshut.justobjects.nl/weer/"/>
         </exec>
 
         <exec executable="scp">
-            <arg line="${home.dir}/weewx.conf"/>
-            <arg line="sadmin@boshut.dyndns.org:/opt/weewx/weewxinst/weewx.conf"/>
+            <arg line="${home.dir}/../te923.py"/>
+            <arg line="sadmin@boshut.dyndns.org:/opt/weewx/weewxinst/bin/weewx/drivers"/>
         </exec>
+
+        <!--<exec executable="scp">-->
+            <!--<arg line="${home.dir}/weewx.conf"/>-->
+            <!--<arg line="sadmin@boshut.dyndns.org:/opt/weewx/weewxinst/weewx.conf"/>-->
+        <!--</exec>-->
 
     </target>
 
