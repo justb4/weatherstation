@@ -1158,6 +1158,70 @@ Configuratie in ``/etc/denyhosts.cfg`` (email adres en Subject aanpassen)
 Om deblokkeren, zie. Data files staan onder `/var/lib`:
 http://www.cyberciti.biz/faq/linux-unix-delete-remove-ip-address-that-denyhosts-blocked/
 
+Upgrades jan 2021
+-----------------
+
+Fix Apt errors
+..............
+
+https://www.raspberrypi.org/forums/viewtopic.php?t=138331
+
+* `/etc/apt/sources.list.d/` commented out the entry in `collabora.list` and `wolfram.list`
+* *https://www.raspberrypi.org/forums/viewtopic.php?t=138331* `404  Not Found`
+* uncommented /etc/apt/source.list and
+* added `deb http://archive.raspberrypi.org/debian wheezy main` to `/etc/apt/sources.lost.d/rasp.list`
+
+Upgrade - wheezy
+................
+
+* apt-get upgrade
+
+The following packages have been kept back:
+  epiphany-browser fake-hwclock libfm-data lxpanel minecraft-pi omxplayer pcmanfm wolfram-engine
+The following packages will be upgraded:
+  epiphany-browser-data firmware-atheros firmware-brcm80211 firmware-libertas firmware-ralink
+firmware-realtek gnome-themes-standard-data gstreamer1.0-omx libfreetype6 libfreetype6-dev libjavascriptcoregtk-3.0-0
+  libpixman-1-0 libraspberrypi-bin libraspberrypi-dev libraspberrypi-doc libraspberrypi0 libsdl1.2debian
+libtag1-vanilla libtag1c2a libwebkitgtk-3.0-0 libwebkitgtk-3.0-common lxinput python-minecraftpi
+  python-picamera python-pifacecommon python-rpi.gpio python3-picamera python3-pifacecommon python3-rpi.gpio
+raspberrypi-artwork raspberrypi-bootloader raspi-config sonic-pi
+
+
+perl: warning: Setting locale failed.
+perl: warning: Please check that your locale settings:
+	LANGUAGE = (unset),
+	LC_ALL = (unset),
+	LC_CTYPE = "UTF-8",
+	LANG = "en_GB.UTF-8"
+    are supported and installed on your system.
+perl: warning: Falling back to the standard locale ("C").
+locale: Cannot set LC_CTYPE to default locale: No such file or directory
+locale: Cannot set LC_ALL to default locale: No such file or directory
+
+https://www.jaredwolff.com/raspberry-pi-setting-your-locale/
+and
+https://raspberrypi.stackexchange.com/questions/43550/unable-to-reconfigure-locale-in-raspberry-pi
+
+Steps:
+
+* /etc/locale.gen and uncomment the line with en_US.UTF-8
+* locale-gen en_US.UTF-8
+* update-locale en_US.UTF-8
+* /etc/default/locale
+
+Change it to include these three lines:
+
+LANG=en_US.UTF-8
+LC_ALL=en_US.UTF-8
+LANGUAGE=en_US.UTF-8
+
+
+Upgrade to Jessie
+.................
+
+https://pimylifeup.com/upgrade-raspbian-wheezy-to-raspbian-jessie/
+
+
 Links
 -----
 

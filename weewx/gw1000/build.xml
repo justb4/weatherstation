@@ -1,0 +1,38 @@
+<!--
+
+ANT Build file for weather station settings.
+
+$Id: build.xml 99 2009-08-20 12:11:38Z just $
+-->
+<project name="WeatherStationBoshut" default="sync-weewx" basedir=".">
+
+    <!-- Directory locations -->
+    <property name="home.dir" value="${basedir}"/>
+
+
+    <target name="sync-weewx">
+        <exec executable="rsync">
+            <arg line="-e ssh -alzvx "/>
+            <arg line="${home.dir}/byteweather/"/>
+            <arg line="sadmin@boshut.dyndns.org:/opt/weewx/weewxinst/skins/byteweather/"/>
+        </exec>
+
+        <exec executable="rsync">
+            <arg line="-e ssh -alzvx "/>
+            <arg line="${home.dir}/byteweather/"/>
+            <arg line="ftpju011@wh-shell1.xs4all.nl:/home/f/ftpju011/Webhosting/htdocs/boshut.justobjects.nl/weer/"/>
+        </exec>
+
+        <exec executable="scp">
+            <arg line="${home.dir}/../te923.py"/>
+            <arg line="sadmin@boshut.dyndns.org:/opt/weewx/weewxinst/bin/weewx/drivers"/>
+        </exec>
+
+        <!--<exec executable="scp">-->
+            <!--<arg line="${home.dir}/weewx.conf"/>-->
+            <!--<arg line="sadmin@boshut.dyndns.org:/opt/weewx/weewxinst/weewx.conf"/>-->
+        <!--</exec>-->
+
+    </target>
+
+</project>
