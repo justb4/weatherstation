@@ -230,10 +230,14 @@ Home: https://github.com/gjr80/weewx-gw1000
 
         **Note:** If an *[Accumulator]* stanza already exists in *weewx.conf* just add the child settings.
 
-4.  Confirm that WeeWX is set to use software [record generation](http://weewx.com/docs/usersguide.htm#record_generation). In *weewx.conf* under *[StdArchive]* ensure the *record_generation* setting is set to *software*:
-    
-        [StdArchive]
-            ....
-            record_generation = software
-    
-    If *record_generation* is set to *hardware* change it to *software*.
+    4.  Confirm that WeeWX is set to use software [record generation](http://weewx.com/docs/usersguide.htm#record_generation). In *weewx.conf* under *[StdArchive]* ensure the *record_generation* setting is set to *software*:
+        
+            [StdArchive]
+                ....
+                record_generation = software
+        
+        If *record_generation* is set to *hardware* change it to *software*.
+
+## Try out
+
+/opt/weewx/weewxinst# python -m weewx.drivers.gw1000 --discover
