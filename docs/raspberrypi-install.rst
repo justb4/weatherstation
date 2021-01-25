@@ -1225,7 +1225,16 @@ Try this first with TFA TE923 device.
 * stop weewx
 * ln -s /opt/weewx/weewx-4.3.0 /opt/weewx/weewx
 * cd weewx
-* modify setup.cfg : home dir
+* modify setup.cfg : home = /opt/weewx/weewxinst
+* python ./setup.py build
+* python ./setup.py install
+* install ok, run ok
+* cd /opt/weatherstation/git/weewx/tfanexus
+* ./install.sh
+* looks ok, now old DB move
+* mv weewx.sdb from /opt/weewx/weewxinst.2.7.0 to  /opt/weewx/weewxinst
+* service weewx start
+* log: "Starting backfill of daily summaries"  will probably take very long time
 
 
 Upgrade to Jessie
