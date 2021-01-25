@@ -1215,6 +1215,18 @@ LANG=en_US.UTF-8
 LC_ALL=en_US.UTF-8
 LANGUAGE=en_US.UTF-8
 
+Upgrade weewx to 4.3.0
+......................
+
+Try this first with TFA TE923 device.
+
+* cd /opt/weewx
+* cp -r weewxinst weewxinst.2.7.0 # backup old
+* stop weewx
+* ln -s /opt/weewx/weewx-4.3.0 /opt/weewx/weewx
+* cd weewx
+* modify setup.cfg : home dir
+
 
 Upgrade to Jessie
 .................
