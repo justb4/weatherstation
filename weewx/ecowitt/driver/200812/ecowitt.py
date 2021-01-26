@@ -97,14 +97,15 @@ DRIVER_VERSION = '1.2'
 DEFAULT_ADDR = ''
 DEFAULT_PORT = 8000
 
+DEBUG = False
 
 def logmsg(dst, msg):
     syslog.syslog(dst, 'ecowitt: %s' % msg)
 
 
 def logdbg(msg):
-    logmsg(syslog.LOG_DEBUG, msg)
-
+    if DEBUG:
+        logmsg(syslog.LOG_DEBUG, msg)
 
 def loginf(msg):
     logmsg(syslog.LOG_INFO, msg)
