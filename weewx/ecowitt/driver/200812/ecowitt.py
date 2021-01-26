@@ -1,9 +1,11 @@
 ﻿#!/usr/bin/python
 # -*- coding: utf-8 -*-
-
+#
 #
 # Copyright 2019 Raffaello Di Martino
 # From a work of Matthew Wall on fileparser driver
+#
+# Just van den Broecke - some mods to map from Froggit HP1000SE-PRO Ecowitt POST content
 #
 # weewx driver that reads data from a file coming from ecowitt_gateway
 # https://github.com/iz0qwm/ecowitt_http_gateway/
@@ -223,15 +225,11 @@ class ecowittDriver(weewx.drivers.AbstractDevice):
         def do_POST(self):
 
             # get the payload from an HTTP POST
-            logdbg('start POST')
-
             length = int(self.headers['Content-Length'])
             data = str(self.rfile.read(length))
-            # logdbg('POST: %s' % _obfuscate_passwords(data))
-            logdbg('POST: %s' % data)
+            logdbg('POST: %s' % _obfuscate_passwords(data))
             queue.put(data)
             self.reply()
-            logdbg('end POST')
 
         def do_PUT(self):
             pass
@@ -241,8 +239,7 @@ class ecowittDriver(weewx.drivers.AbstractDevice):
             # get the query string from an HTTP GET
 
             data = urlparse.urlparse(self.path).query
-            # logdbg('GET: %s' % _obfuscate_passwords(data))
-            logdbg('GET: %s' % data)
+            logdbg('GET: %s' % _obfuscate_passwords(data))
             queue.put(data)
             self.reply()
 
@@ -310,7 +307,7 @@ class ecowittDriver(weewx.drivers.AbstractDevice):
                     pkt = dict()
                     data = self.get_queue().get(True,
                             self._queue_timeout)
-                    logdbg('raw data: %s' % data)
+                    # logdbg('raw data: %s' % data)
                     parts = data.split('&')
                     for x in parts:
                         if not x:
@@ -424,7 +421,7 @@ class ecowittDriver(weewx.drivers.AbstractDevice):
                             elif n == 'wh25batt':
                                  pkt['supplyVoltage'] = float(v)
                             else:
-                                loginf("unknown element '%s' with value '%s'"
+                                logdbg("unknown element '%s' with value '%s'"
                                          % (n, v))
                         except (ValueError, IndexError) as e:
                             logerr("decode failed for %s '%s': %s"
@@ -507,5 +504,4 @@ if __name__ == '__main__':
     import weeutil.weeutil
     driver = ecowittDriver()
     for packet in driver.genLoopPackets():
-        print weeutil.weeutil.timestamp_to_string(packet['dateTime']), \
-            packet
+        print(weeutil.weeutil.timestamp_to_string(packet['dateTime'])+ str(packet))
