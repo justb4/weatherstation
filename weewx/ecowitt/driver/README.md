@@ -36,3 +36,32 @@ Check the automatic addition at the end of weewx.conf:<br>
      port = 9999                           # port to which GW1000 will connect to in mode=server
 </b>
 </pre>
+
+POSTed fields
+
+    stationtype=EasyWeatherV1.4.6
+    dateutc=2021-01-26+11:25:15
+    tempinf=69.1
+    humidityin=54
+    baromrelin=30.042
+    baromabsin=29.918
+    tempf=41.5
+    humidity=91
+    winddir=236
+    winddir_avg10m=236
+    windspeedmph=0.0
+    windspdmph_avg10m=0.0
+    windgustmph=0.0
+    maxdailygust=3.4
+    rainratein=0.000
+    eventrainin=0.169
+    hourlyrainin=0.000
+    dailyrainin=0.051
+    weeklyrainin=0.169
+    monthlyrainin=0.461
+    yearlyrainin=0.461
+    solarradiation=42.45
+    uv=0wh65batt=0
+    wh25batt=0
+    freq=868M
+    model=HP1000SE-PRO_Pro_V1.6.4

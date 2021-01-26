@@ -223,12 +223,15 @@ class ecowittDriver(weewx.drivers.AbstractDevice):
         def do_POST(self):
 
             # get the payload from an HTTP POST
+            logdbg('start POST')
 
             length = int(self.headers['Content-Length'])
             data = str(self.rfile.read(length))
-            logdbg('POST: %s' % _obfuscate_passwords(data))
+            # logdbg('POST: %s' % _obfuscate_passwords(data))
+            logdbg('POST: %s' % data)
             queue.put(data)
             self.reply()
+            logdbg('end POST')
 
         def do_PUT(self):
             pass
@@ -238,7 +241,8 @@ class ecowittDriver(weewx.drivers.AbstractDevice):
             # get the query string from an HTTP GET
 
             data = urlparse.urlparse(self.path).query
-            logdbg('GET: %s' % _obfuscate_passwords(data))
+            # logdbg('GET: %s' % _obfuscate_passwords(data))
+            logdbg('GET: %s' % data)
             queue.put(data)
             self.reply()
 
@@ -287,7 +291,7 @@ class ecowittDriver(weewx.drivers.AbstractDevice):
                             name = line[:eq_index].strip()
                             value = line[eq_index + 1:].strip()
                             data[name] = value
-                except Exception, e:
+                except Exception as e:
                     logerr('read failed: %s' % e)
 
             # map the data into a weewx loop packet
@@ -318,6 +322,34 @@ class ecowittDriver(weewx.drivers.AbstractDevice):
                         (n, v) = x.split('=')
                         n = n.strip()
                         v = v.strip()
+                        # POSTed fields
+                        #
+                        #     stationtype=EasyWeatherV1.4.6
+                        #     dateutc=2021-01-26+11:25:15
+                        #     tempinf=69.1   ok
+                        #     humidityin=54  ok
+                        #     baromrelin=30.042 ok
+                        #     baromabsin=29.918  ok
+                        #     tempf=41.5        ok
+                        #     humidity=91  ok
+                        #     winddir=236  ok
+                        #     winddir_avg10m=236
+                        #     windspeedmph=0.0  ok
+                        #     windspdmph_avg10m=0.0
+                        #     windgustmph=0.0  ok
+                        #     maxdailygust=3.4
+                        #     rainratein=0.000 ok
+                        #     eventrainin=0.169  ok by just
+                        #     hourlyrainin=0.000 ok by just
+                        #     dailyrainin=0.051   ok by just
+                        #     weeklyrainin=0.169  ok by just
+                        #     monthlyrainin=0.461  ok by just
+                        #     yearlyrainin=0.461  ok by just
+                        #     solarradiation=42.45 ok
+                        #     uv=0wh65batt=0  ok
+                        #     wh25batt=0
+                        #     freq=868M
+                        #     model=HP1000SE-PRO_Pro_V1.6.4
                         try:
                             rain_total = None
                             if n == 'tempf':
@@ -328,20 +360,36 @@ class ecowittDriver(weewx.drivers.AbstractDevice):
                                 pkt['pressure'] = float(v)
                             elif n == 'humidity':
                                 pkt['outHumidity'] = float(v)
+
+                            elif n == 'tempinf':
+                                pkt['inTemp'] = float(v)
+                            elif n == 'humidityin':
+                                pkt['inHumidity'] = float(v)
+
                             elif n == 'windspeedmph':
                                 pkt['windSpeed'] = float(v)
                             elif n == 'windgustmph':
                                 pkt['windGust'] = float(v)
                             elif n == 'winddir':
                                 pkt['winddir'] = float(v)
+
                             elif n == 'rainratein':
                                 pkt['rainRate'] = float(v)
+                            elif n == 'hourlyrainin':
+                                pkt['hourRain'] = float(v)
+                            elif n == 'dailyrainin':
+                                pkt['dayRain'] = float(v)
+                            elif n == 'weeklyrainin':
+                                pkt['weekRain'] = float(v)
+                            elif n == 'monthlyrainin':
+                                pkt['monthRain'] = float(v)
+                            elif n == 'yearlyrainin':
+                                pkt['yearRain'] = float(v)
+                            elif n == 'eventrainin':
+                                pkt['stormRain'] = float(v)
                             elif n == 'totalrainin':
                                 pkt['rain_total'] = float(v)
-                            elif n == 'tempinf':
-                                pkt['inTemp'] = float(v)
-                            elif n == 'humidityin':
-                                pkt['inHumidity'] = float(v)
+
                             elif n == 'solarradiation':
                                 pkt['radiation'] = float(v)
                             elif n == 'uv':
@@ -372,6 +420,9 @@ class ecowittDriver(weewx.drivers.AbstractDevice):
                                     pkt['rainBatteryStatus'] = 0.0
                             elif n == 'batt1':
                                 pkt['outTempBatteryStatus'] = float(v)
+                            # JvdB added
+                            elif n == 'wh25batt':
+                                 pkt['supplyVoltage'] = float(v)
                             else:
                                 loginf("unknown element '%s' with value '%s'"
                                          % (n, v))
@@ -379,10 +430,10 @@ class ecowittDriver(weewx.drivers.AbstractDevice):
                             logerr("decode failed for %s '%s': %s"
                                    % (n, v, e))
 
-                    pkt['rain'] = \
-                        weewx.wxformulas.calculate_rain(pkt['rain_total'
-                            ], self.last_rain)
-                    self.last_rain = pkt['rain_total']
+                    # pkt['rain'] = \
+                    #     weewx.wxformulas.calculate_rain(pkt['rain_total'
+                    #         ], self.last_rain)
+                    # self.last_rain = pkt['rain_total']
 
                     pkt['windchill'] = 35.74 + 0.6215 * pkt['outTemp'] \
                         + (0.4275 * pkt['outTemp'] - 35.75) \
@@ -400,11 +451,11 @@ class ecowittDriver(weewx.drivers.AbstractDevice):
                     _packet = {
                         'dateTime': int(time.time() + 0.5),
                         'usUnits': weewx.US,
-                        'rain': pkt['rain'],
+                        #'rain': pkt['rain'],
                         'outTemp': pkt['outTemp'],
                         'barometer': pkt['barometer'],
                         'pressure': pkt['pressure'],
-                        'humidity': pkt['outHumidity'],
+                        'outHumidity': pkt['outHumidity'],
                         'windSpeed': pkt['windSpeed'],
                         'windGust': pkt['windGust'],
                         'windDir': pkt['winddir'],
@@ -414,19 +465,17 @@ class ecowittDriver(weewx.drivers.AbstractDevice):
                         'radiation': pkt['radiation'],
                         'uv': pkt['uv'],
                         'windchill': pkt['windchill'],
-                        'dewpoint': pkt['dewpoint'],
-                        'extraTemp1': pkt['extraTemp1'],
-                        'extraHumid1': pkt['extraHumid1'],
-                        'extraTemp2': pkt['extraTemp2'],
-                        'extraHumid2': pkt['extraHumid2'],
-                        'soilTemp1': pkt['soilTemp1'],
-                        'consBatteryVoltage': pkt['consBatteryVoltage'
-                                ],
-                        'supplyVoltage': pkt['supplyVoltage'],
-                        'windBatteryStatus': pkt['windBatteryStatus'],
-                        'rainBatteryStatus': pkt['rainBatteryStatus'],
-                        'outTempBatteryStatus': pkt['outTempBatteryStatus'
-                                ],
+                        'dewpoint': pkt['dewpoint']
+                        # 'extraTemp1': pkt['extraTemp1'],
+                        # 'extraHumid1': pkt['extraHumid1'],
+                        # 'extraTemp2': pkt['extraTemp2'],
+                        # 'extraHumid2': pkt['extraHumid2'],
+                        # 'soilTemp1': pkt['soilTemp1'],
+                        # 'consBatteryVoltage': pkt['consBatteryVoltage'],
+                        # 'supplyVoltage': pkt['supplyVoltage'],
+                        # 'windBatteryStatus': pkt['windBatteryStatus'],
+                        # 'rainBatteryStatus': pkt['rainBatteryStatus'],
+                        # 'outTempBatteryStatus': pkt['outTempBatteryStatus'],
                         }
 
                     logdbg('decoded packet: %s' % _packet)
