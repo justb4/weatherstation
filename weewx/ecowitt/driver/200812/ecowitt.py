@@ -432,6 +432,10 @@ class ecowittDriver(weewx.drivers.AbstractDevice):
                     #     weewx.wxformulas.calculate_rain(pkt['rain_total'
                     #         ], self.last_rain)
                     # self.last_rain = pkt['rain_total']
+                    if not self.last_rain:
+                        self.last_rain = pkt['dayRain']
+                    pkt['rain'] = pkt['dayRain'] - self.last_rain
+                    self.last_rain = pkt['dayRain']
 
                     pkt['windchill'] = 35.74 + 0.6215 * pkt['outTemp'] \
                         + (0.4275 * pkt['outTemp'] - 35.75) \
@@ -449,7 +453,7 @@ class ecowittDriver(weewx.drivers.AbstractDevice):
                     _packet = {
                         'dateTime': int(time.time() + 0.5),
                         'usUnits': weewx.US,
-                        #'rain': pkt['rain'],
+                        'rain': pkt['rain'],
                         'outTemp': pkt['outTemp'],
                         'barometer': pkt['barometer'],
                         'pressure': pkt['pressure'],
