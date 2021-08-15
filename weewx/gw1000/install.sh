@@ -13,6 +13,6 @@ cp driver/${DRIVER_VERSION}/bin/user/gw1000.py ${WEEWX}/bin/user/
 
 rm -rf ${WEEWX}/skins/byteweather
 cp -rp ${SKIN} ${WEEWX}/skins/byteweather
-scp -r ${SKIN}/* bosvoe@boshut:/usr/home/bosvoe/public_html/boshut.justobjects.nl/weer
+scp -r -P 222 ${SKIN}/* bosvoe@boshut:/usr/home/bosvoe/public_html/boshut.justobjects.nl/weer
 
 # /etc/init.d/weewx start
