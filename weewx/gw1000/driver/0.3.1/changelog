@@ -1,0 +1,40 @@
+c0.3.1
+*   fixed error when broadcast port or socket timeout is specified in
+    weewx.conf
+*   fixed bug when decoding firmware version string that resulted in a
+    truncated result
+v0.3.0
+*   added the --units command line option to allow the output of --live-data to
+    be displayed in specified units (US customary or Metric)
+*   added support for WH35 sensor
+*   when run directly the driver now distinguishes between no sensor ID
+    response and an empty sensor ID response
+*   reworked battery state, signal level and sensor ID processing to cater for
+    changes to battery state reporting introduced in GW1000 API v1.6.0 (GW1000
+    v1.6.5 firmware)
+*   The GW1000 cumulative daily lightning count field is now included in driver
+    loop packets as field 'lightningcount' (the default field name). Previously
+    this field was used to derive the WeeWX extended schema field
+    'lightning_strike_count' and was not included in loop packets.
+*   fixed incomplete --default-map output
+*   fixes loss of battery state data for some sensors that occurred under
+    GW1000 firmware release v1.6.5 and later
+v0.2.0
+*   added support for WH45 sensor
+*   improved comments in installer/wee_config inserted config stanzas/entries
+*   sensor signal levels added to loop packet
+*   added --get-services command line option to display the GW1000 supported
+    weather services settings when driver is run directly
+*   added --get-pm25-offset command line option to display GW1000 PM2.5 sensor
+    offset settings when driver is run directly
+*   added --get-mulch-offset command line option to display GW1000
+    multi-channel TH sensor calibration settings when driver is run directly
+*   added --get-soil-calibration command line option to display GW1000 soil
+    moisture sensor calibration settings when driver is run directly
+*   added --get-calibration command line option to display GW1000 sensor
+    calibration settings when driver is run directly
+*   renamed --rain-data command line option to --get-rain-data
+*   renamed various 24 hour average particulate concentration fields
+*   added a check for unknown field addresses when processing sensor data
+v0.1.0
+*   initial release

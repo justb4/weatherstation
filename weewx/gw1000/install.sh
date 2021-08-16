@@ -2,7 +2,7 @@
 
 WEEWX="/opt/weewx/weewxinst"
 SKIN="../skin/byteweather"
-DRIVER_VERSION=0.2.0
+DRIVER_VERSION=0.3.1
 
 # /etc/init.d/weewx stop
 
