@@ -12,6 +12,6 @@ cp weewx.conf ${WEEWX}/
 # sed -i "s/wowpasswd/`cat wowpasswd`/g" ${WEEWX}/weewx.conf
 rm -rf ${WEEWX}/skins/byteweather
 cp -rp ${SKIN} ${WEEWX}/skins/byteweather
-scp -r ${SKIN}/* ftpju011@boshut:/home/f/ftpju011/Webhosting/htdocs/boshut.justobjects.nl/weer
+scp -r -P 222 ${SKIN}/* bosvoe@boshut:/usr/home/bosvoe/public_html/boshut.justobjects.nl/weer
 
 # /etc/init.d/weewx start
